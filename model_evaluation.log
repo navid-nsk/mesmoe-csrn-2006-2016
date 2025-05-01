@@ -1,0 +1,124 @@
+2025-04-25 10:40:27,748 - __main__ - INFO - === Starting Multi-Ethnic Spatial MoE Model Evaluation ===
+2025-04-25 10:40:27,748 - __main__ - INFO - Arguments: Namespace(data_dir='./data', spatial_dir='./spatial_data', global_params_path='./data/global_parameters.json', da_coordinates_path='./data/toronto_da.csv', scaler='standard', batch_size=64, attention_heads=3, hidden_dim_1_base=28, hidden_dim_2_base=9, hidden_dim_3_base=8, coord_embed_base=7, dropout_rate=0.1930287204884957, colonization_threshold=0.13357705254672683, colonization_expert_weight=0.7798480148640908, jump_threshold=142.22567841569256, jump_expert_weight=0.7157969232653937, decline_threshold=73.78197294263202, decline_expert_weight=0.7192671362481913, pde_expert_weight=0.680966412263434, log_space=False, model_path='./model/model.pt', predictions_path='./predictions/model_evaluation_predictions.csv', metrics_dir='./metrics/evaluation', device='cuda')
+2025-04-25 10:40:27,750 - __main__ - INFO - Loaded global parameters from ./data/global_parameters.json: {'K': 0.046942830571135886, 'sigma_squared': 3.5911050665737987, 'alpha_0': 0.5667213663794652, 'beta_0': 3.3373053296446606}
+2025-04-25 10:40:27,784 - __main__ - INFO - Loaded DA coordinates from ./data/toronto_da.csv
+2025-04-25 10:40:27,834 - csrn.data_loader.spatial_data_loader - INFO - Loaded walking matrix with shape (3742, 3742)
+2025-04-25 10:40:27,875 - csrn.data_loader.spatial_data_loader - INFO - Loaded transit matrix with shape (3742, 3742)
+2025-04-25 10:40:27,925 - csrn.data_loader.spatial_data_loader - INFO - Loaded proximity matrix with shape (3742, 3742)
+2025-04-25 10:40:27,963 - csrn.data_loader.spatial_data_loader - INFO - Loaded DA info with 3742 entries
+2025-04-25 10:40:27,965 - csrn.data_loader.spatial_data_loader - INFO - Loading multi-ethnic data files...
+2025-04-25 10:40:28,012 - csrn.data_loader.spatial_data_loader - INFO - Loaded train_features: 2236 rows
+2025-04-25 10:40:28,030 - csrn.data_loader.spatial_data_loader - INFO - Loaded train_pop_2006: 2236 rows
+2025-04-25 10:40:28,031 - csrn.data_loader.spatial_data_loader - INFO -   - Contains 5 ethnicities: ['China', 'India', 'Philippines', 'Portugal', 'Sri Lanka']
+2025-04-25 10:40:28,169 - csrn.data_loader.spatial_data_loader - INFO - Loaded train_pop_2016: 2236 rows
+2025-04-25 10:40:28,170 - csrn.data_loader.spatial_data_loader - INFO -   - Contains 10 ethnicities: ['China', 'Hong Kong', 'India', 'Iran', 'Italy', 'Jamaica', 'Philippines', 'Portugal', 'Sri Lanka', 'United Kingdom']
+2025-04-25 10:40:28,203 - csrn.data_loader.spatial_data_loader - INFO - Loaded val_features: 745 rows
+2025-04-25 10:40:28,217 - csrn.data_loader.spatial_data_loader - INFO - Loaded val_pop_2006: 745 rows
+2025-04-25 10:40:28,217 - csrn.data_loader.spatial_data_loader - INFO -   - Contains 5 ethnicities: ['China', 'India', 'Philippines', 'Portugal', 'Sri Lanka']
+2025-04-25 10:40:28,249 - csrn.data_loader.spatial_data_loader - INFO - Loaded val_pop_2016: 745 rows
+2025-04-25 10:40:28,249 - csrn.data_loader.spatial_data_loader - INFO -   - Contains 10 ethnicities: ['China', 'Hong Kong', 'India', 'Iran', 'Italy', 'Jamaica', 'Philippines', 'Portugal', 'Sri Lanka', 'United Kingdom']
+2025-04-25 10:40:28,278 - csrn.data_loader.spatial_data_loader - INFO - Loaded test_features: 746 rows
+2025-04-25 10:40:28,279 - csrn.data_loader.spatial_data_loader - INFO - Loaded test_pop_2006: 746 rows
+2025-04-25 10:40:28,280 - csrn.data_loader.spatial_data_loader - INFO -   - Contains 5 ethnicities: ['China', 'India', 'Philippines', 'Portugal', 'Sri Lanka']
+2025-04-25 10:40:28,281 - csrn.data_loader.spatial_data_loader - INFO - Loaded test_pop_2016: 746 rows
+2025-04-25 10:40:28,281 - csrn.data_loader.spatial_data_loader - INFO -   - Contains 10 ethnicities: ['China', 'Hong Kong', 'India', 'Iran', 'Italy', 'Jamaica', 'Philippines', 'Portugal', 'Sri Lanka', 'United Kingdom']
+2025-04-25 10:40:28,281 - csrn.data_loader.spatial_data_loader - INFO - Creating multi-ethnic spatially-aware DataLoaders...
+2025-04-25 10:40:28,281 - csrn.data_loader.spatial_data_loader - INFO - Preprocessing features...
+2025-04-25 10:40:28,296 - csrn.data_loader.spatial_data_loader - INFO - Feature preprocessing complete.
+2025-04-25 10:40:28,298 - csrn.data_loader.spatial_data_loader - INFO - Loaded data with 5 ethnicities: ['China', 'India', 'Philippines', 'Portugal', 'Sri Lanka']
+2025-04-25 10:40:28,516 - csrn.data_loader.spatial_data_loader - INFO - Loaded coordinates for 2236 DAs
+2025-04-25 10:40:28,518 - csrn.data_loader.spatial_data_loader - INFO - Loaded data with 5 ethnicities: ['China', 'India', 'Philippines', 'Portugal', 'Sri Lanka']
+2025-04-25 10:40:28,591 - csrn.data_loader.spatial_data_loader - INFO - Loaded coordinates for 745 DAs
+2025-04-25 10:40:28,592 - csrn.data_loader.spatial_data_loader - INFO - Loaded data with 5 ethnicities: ['China', 'India', 'Philippines', 'Portugal', 'Sri Lanka']
+2025-04-25 10:40:28,668 - csrn.data_loader.spatial_data_loader - INFO - Loaded coordinates for 746 DAs
+2025-04-25 10:40:28,668 - csrn.data_loader.spatial_data_loader - INFO - Created DataLoaders: Train size=2236, Val size=745, Test size=746
+2025-04-25 10:40:28,669 - csrn.data_loader.spatial_data_loader - INFO - Number of ethnicities: 5
+2025-04-25 10:40:28,669 - __main__ - INFO - Processing 5 ethnicities: ['China', 'India', 'Philippines', 'Portugal', 'Sri Lanka']
+2025-04-25 10:40:28,669 - __main__ - INFO - Loading pretrained model from ./model/model.pt
+2025-04-25 10:40:28,740 - __main__ - INFO - Creating model with the same architecture
+2025-04-25 10:40:28,773 - spatial_moe_trainer - INFO - Multi-Ethnic Spatial MoE model initialized on cuda
+2025-04-25 10:40:28,774 - spatial_moe_trainer - INFO - Model will predict 5 ethnicities: ['China', 'India', 'Philippines', 'Portugal', 'Sri Lanka']
+2025-04-25 10:40:28,774 - __main__ - INFO - Evaluating model on test set...
+2025-04-25 10:40:30,946 - __main__ - INFO - Test MSE: 650.9080
+2025-04-25 10:40:30,946 - __main__ - INFO - Test MAE: 11.3784
+2025-04-25 10:40:30,947 - __main__ - INFO - Test R²: 0.7130
+2025-04-25 10:40:30,947 - __main__ - INFO - Ethnicity-specific metrics:
+2025-04-25 10:40:30,947 - __main__ - INFO -   China - MSE: 863.4390, MAE: 16.3314, R²: 0.7966
+2025-04-25 10:40:30,947 - __main__ - INFO -   India - MSE: 1065.4978, MAE: 12.2451, R²: 0.5028
+2025-04-25 10:40:30,947 - __main__ - INFO -   Philippines - MSE: 933.0263, MAE: 14.5311, R²: 0.6852
+2025-04-25 10:40:30,948 - __main__ - INFO -   Portugal - MSE: 107.2347, MAE: 6.0579, R²: 0.8029
+2025-04-25 10:40:30,948 - __main__ - INFO -   Sri Lanka - MSE: 285.3422, MAE: 7.7264, R²: 0.7157
+2025-04-25 10:40:30,948 - __main__ - INFO - Colonization - MSE: 181.3415, MAE: 6.3192, Count: 2354
+2025-04-25 10:40:30,948 - __main__ - INFO - Jump - MSE: 89607.6797, MAE: 213.4126, Count: 8
+2025-04-25 10:40:30,948 - __main__ - INFO - Decline - MSE: 456.5077, MAE: 12.8622, Count: 876
+2025-04-25 10:40:30,948 - __main__ - INFO - Pde - MSE: 1597.1458, MAE: 28.2866, Count: 471
+2025-04-25 10:40:30,948 - __main__ - INFO - Regular - MSE: 6285.2954, MAE: 60.3978, Count: 21
+2025-04-25 10:40:30,950 - spatial_moe_trainer - INFO - Test overall metrics saved to ./metrics/evaluation\test_overall_metrics.csv
+2025-04-25 10:40:30,951 - spatial_moe_trainer - INFO - Test ethnicity metrics saved to ./metrics/evaluation\test_ethnicity_metrics.csv
+2025-04-25 10:40:30,952 - spatial_moe_trainer - INFO - Test case metrics saved to ./metrics/evaluation\test_case_metrics.csv
+2025-04-25 10:40:30,952 - __main__ - INFO - Test metrics saved to ./metrics/evaluation
+2025-04-25 10:40:30,952 - __main__ - INFO - Generating predictions for test set...
+2025-04-25 10:40:32,784 - __main__ - INFO - Predictions saved to ./predictions/model_evaluation_predictions.csv
+2025-04-25 10:40:32,784 - __main__ - INFO - === Multi-Ethnic Spatial MoE Model Evaluation Completed ===
+2025-04-28 15:34:10,026 - __main__ - INFO - === Starting Multi-Ethnic Spatial MoE Model Evaluation ===
+2025-04-28 15:34:10,027 - __main__ - INFO - Arguments: Namespace(data_dir='./data', spatial_dir='./spatial_data', global_params_path='./data/global_parameters.json', da_coordinates_path='./data/toronto_da.csv', scaler='standard', batch_size=64, attention_heads=3, hidden_dim_1_base=28, hidden_dim_2_base=9, hidden_dim_3_base=8, coord_embed_base=7, dropout_rate=0.1930287204884957, colonization_threshold=0.13357705254672683, colonization_expert_weight=0.7798480148640908, jump_threshold=142.22567841569256, jump_expert_weight=0.7157969232653937, decline_threshold=73.78197294263202, decline_expert_weight=0.7192671362481913, pde_expert_weight=0.680966412263434, log_space=False, model_path='./model/model.pt', predictions_path='./predictions/model_evaluation_predictions.csv', metrics_dir='./metrics/evaluation', device='cuda')
+2025-04-28 15:34:10,028 - __main__ - INFO - Loaded global parameters from ./data/global_parameters.json: {'K': 0.046942830571135886, 'sigma_squared': 3.5911050665737987, 'alpha_0': 0.5667213663794652, 'beta_0': 3.3373053296446606}
+2025-04-28 15:34:10,048 - __main__ - INFO - Loaded DA coordinates from ./data/toronto_da.csv
+2025-04-28 15:34:10,137 - csrn.data_loader.spatial_data_loader - INFO - Loaded walking matrix with shape (3742, 3742)
+2025-04-28 15:34:10,240 - csrn.data_loader.spatial_data_loader - INFO - Loaded transit matrix with shape (3742, 3742)
+2025-04-28 15:34:10,334 - csrn.data_loader.spatial_data_loader - INFO - Loaded proximity matrix with shape (3742, 3742)
+2025-04-28 15:34:10,352 - csrn.data_loader.spatial_data_loader - INFO - Loaded DA info with 3742 entries
+2025-04-28 15:34:10,353 - csrn.data_loader.spatial_data_loader - INFO - Loading multi-ethnic data files...
+2025-04-28 15:34:10,396 - csrn.data_loader.spatial_data_loader - INFO - Loaded train_features: 2236 rows
+2025-04-28 15:34:10,409 - csrn.data_loader.spatial_data_loader - INFO - Loaded train_pop_2006: 2236 rows
+2025-04-28 15:34:10,409 - csrn.data_loader.spatial_data_loader - INFO -   - Contains 5 ethnicities: ['China', 'India', 'Philippines', 'Portugal', 'Sri Lanka']
+2025-04-28 15:34:10,490 - csrn.data_loader.spatial_data_loader - INFO - Loaded train_pop_2016: 2236 rows
+2025-04-28 15:34:10,490 - csrn.data_loader.spatial_data_loader - INFO -   - Contains 10 ethnicities: ['China', 'Hong Kong', 'India', 'Iran', 'Italy', 'Jamaica', 'Philippines', 'Portugal', 'Sri Lanka', 'United Kingdom']
+2025-04-28 15:34:10,523 - csrn.data_loader.spatial_data_loader - INFO - Loaded val_features: 745 rows
+2025-04-28 15:34:10,534 - csrn.data_loader.spatial_data_loader - INFO - Loaded val_pop_2006: 745 rows
+2025-04-28 15:34:10,534 - csrn.data_loader.spatial_data_loader - INFO -   - Contains 5 ethnicities: ['China', 'India', 'Philippines', 'Portugal', 'Sri Lanka']
+2025-04-28 15:34:10,554 - csrn.data_loader.spatial_data_loader - INFO - Loaded val_pop_2016: 745 rows
+2025-04-28 15:34:10,555 - csrn.data_loader.spatial_data_loader - INFO -   - Contains 10 ethnicities: ['China', 'Hong Kong', 'India', 'Iran', 'Italy', 'Jamaica', 'Philippines', 'Portugal', 'Sri Lanka', 'United Kingdom']
+2025-04-28 15:34:10,580 - csrn.data_loader.spatial_data_loader - INFO - Loaded test_features: 746 rows
+2025-04-28 15:34:10,598 - csrn.data_loader.spatial_data_loader - INFO - Loaded test_pop_2006: 746 rows
+2025-04-28 15:34:10,598 - csrn.data_loader.spatial_data_loader - INFO -   - Contains 5 ethnicities: ['China', 'India', 'Philippines', 'Portugal', 'Sri Lanka']
+2025-04-28 15:34:10,611 - csrn.data_loader.spatial_data_loader - INFO - Loaded test_pop_2016: 746 rows
+2025-04-28 15:34:10,612 - csrn.data_loader.spatial_data_loader - INFO -   - Contains 10 ethnicities: ['China', 'Hong Kong', 'India', 'Iran', 'Italy', 'Jamaica', 'Philippines', 'Portugal', 'Sri Lanka', 'United Kingdom']
+2025-04-28 15:34:10,612 - csrn.data_loader.spatial_data_loader - INFO - Creating multi-ethnic spatially-aware DataLoaders...
+2025-04-28 15:34:10,612 - csrn.data_loader.spatial_data_loader - INFO - Preprocessing features...
+2025-04-28 15:34:10,629 - csrn.data_loader.spatial_data_loader - INFO - Feature preprocessing complete.
+2025-04-28 15:34:10,633 - csrn.data_loader.spatial_data_loader - INFO - Loaded data with 5 ethnicities: ['China', 'India', 'Philippines', 'Portugal', 'Sri Lanka']
+2025-04-28 15:34:10,839 - csrn.data_loader.spatial_data_loader - INFO - Loaded coordinates for 2236 DAs
+2025-04-28 15:34:10,841 - csrn.data_loader.spatial_data_loader - INFO - Loaded data with 5 ethnicities: ['China', 'India', 'Philippines', 'Portugal', 'Sri Lanka']
+2025-04-28 15:34:10,912 - csrn.data_loader.spatial_data_loader - INFO - Loaded coordinates for 745 DAs
+2025-04-28 15:34:10,913 - csrn.data_loader.spatial_data_loader - INFO - Loaded data with 5 ethnicities: ['China', 'India', 'Philippines', 'Portugal', 'Sri Lanka']
+2025-04-28 15:34:10,983 - csrn.data_loader.spatial_data_loader - INFO - Loaded coordinates for 746 DAs
+2025-04-28 15:34:10,984 - csrn.data_loader.spatial_data_loader - INFO - Created DataLoaders: Train size=2236, Val size=745, Test size=746
+2025-04-28 15:34:10,984 - csrn.data_loader.spatial_data_loader - INFO - Number of ethnicities: 5
+2025-04-28 15:34:10,986 - __main__ - INFO - Processing 5 ethnicities: ['China', 'India', 'Philippines', 'Portugal', 'Sri Lanka']
+2025-04-28 15:34:10,986 - __main__ - INFO - Loading pretrained model from ./model/model.pt
+2025-04-28 15:34:11,047 - __main__ - INFO - Creating model with the same architecture
+2025-04-28 15:34:11,084 - spatial_moe_trainer - INFO - Multi-Ethnic Spatial MoE model initialized on cuda
+2025-04-28 15:34:11,085 - spatial_moe_trainer - INFO - Model will predict 5 ethnicities: ['China', 'India', 'Philippines', 'Portugal', 'Sri Lanka']
+2025-04-28 15:34:11,085 - __main__ - INFO - Evaluating model on test set...
+2025-04-28 15:34:12,681 - __main__ - INFO - Test MSE: 650.9080
+2025-04-28 15:34:12,681 - __main__ - INFO - Test MAE: 11.3784
+2025-04-28 15:34:12,681 - __main__ - INFO - Test R²: 0.7130
+2025-04-28 15:34:12,685 - __main__ - INFO - Ethnicity-specific metrics:
+2025-04-28 15:34:12,685 - __main__ - INFO -   China - MSE: 863.4390, MAE: 16.3314, R²: 0.7966
+2025-04-28 15:34:12,685 - __main__ - INFO -   India - MSE: 1065.4978, MAE: 12.2451, R²: 0.5028
+2025-04-28 15:34:12,685 - __main__ - INFO -   Philippines - MSE: 933.0263, MAE: 14.5311, R²: 0.6852
+2025-04-28 15:34:12,685 - __main__ - INFO -   Portugal - MSE: 107.2347, MAE: 6.0579, R²: 0.8029
+2025-04-28 15:34:12,685 - __main__ - INFO -   Sri Lanka - MSE: 285.3422, MAE: 7.7264, R²: 0.7157
+2025-04-28 15:34:12,685 - __main__ - INFO - Colonization - MSE: 181.3415, MAE: 6.3192, Count: 2354
+2025-04-28 15:34:12,685 - __main__ - INFO - Jump - MSE: 89607.6797, MAE: 213.4126, Count: 8
+2025-04-28 15:34:12,685 - __main__ - INFO - Decline - MSE: 456.5077, MAE: 12.8622, Count: 876
+2025-04-28 15:34:12,686 - __main__ - INFO - Pde - MSE: 1597.1458, MAE: 28.2866, Count: 471
+2025-04-28 15:34:12,686 - __main__ - INFO - Regular - MSE: 6285.2954, MAE: 60.3978, Count: 21
+2025-04-28 15:34:12,687 - spatial_moe_trainer - INFO - Test overall metrics saved to ./metrics/evaluation\test_overall_metrics.csv
+2025-04-28 15:34:12,688 - spatial_moe_trainer - INFO - Test ethnicity metrics saved to ./metrics/evaluation\test_ethnicity_metrics.csv
+2025-04-28 15:34:12,688 - spatial_moe_trainer - INFO - Test case metrics saved to ./metrics/evaluation\test_case_metrics.csv
+2025-04-28 15:34:12,689 - __main__ - INFO - Test metrics saved to ./metrics/evaluation
+2025-04-28 15:34:12,689 - __main__ - INFO - Generating predictions for test set...
+2025-04-28 15:34:14,187 - __main__ - INFO - Predictions saved to ./predictions/model_evaluation_predictions.csv
+2025-04-28 15:34:14,187 - __main__ - INFO - === Multi-Ethnic Spatial MoE Model Evaluation Completed ===
